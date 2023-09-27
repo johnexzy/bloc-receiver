@@ -67,7 +67,9 @@ async function sendWebHook(data: trxResponse, url: string) {
               },
               {
                 type: "mrkdwn",
-                text: `*Type*\n${data.text}`,
+                text: `*Type*\n${data.transactionType === "token"
+                ? (data.meta.token_name as string)
+                : (data.meta.blockchain as string)} Transfer`,
               },
             ],
           },
