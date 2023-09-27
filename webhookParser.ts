@@ -35,7 +35,7 @@ async function sendWebHook(data: trxResponse, url: string) {
               },
               {
                 type: "mrkdwn",
-                text: `*To*\n$${data.to}`,
+                text: `*To*\n${data.to}`,
               },
             ],
           },
@@ -48,7 +48,7 @@ async function sendWebHook(data: trxResponse, url: string) {
               },
               {
                 type: "mrkdwn",
-                text: `*Type*\n$${data.text}`,
+                text: `*Type*\n${data.text}`,
               },
             ],
           },
