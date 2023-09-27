@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors'
+import sendWebHook from './webhookParser';
 dotenv.config();
 
 const app: Express = express();
@@ -15,6 +16,7 @@ app.post("/webhook", async (req, res) => {
     const { body } = req;
     try {
         console.log(body);
+        sendWebHook(body, 'https://hooks.slack.com/services/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')
     } catch (e) {
         console.log(e);
         return res.status(400).json();
