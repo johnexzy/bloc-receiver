@@ -21,13 +21,20 @@ async function sendWebHook(data: trxResponse, url: string) {
         "Content-Type": "application/json;charset=UTF-8",
       },
       data: JSON.stringify({
-        text: data.text,
         blocks: [
           {
             type: "section",
             text: {
               type: "plain_text",
               text: `${data.from} transferred ${data.value} to ${data.to}`,
+              emoji: true,
+            },
+          },
+          {
+            type: "header",
+            text: {
+              type: "plain_text",
+              text: data.text,
               emoji: true,
             },
           },
