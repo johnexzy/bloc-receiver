@@ -16,7 +16,7 @@ app.post("/webhook", async (req, res) => {
     const { body } = req;
     try {
         console.log(body);
-        sendWebHook(body, 'https://hooks.slack.com/services/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')
+        sendWebHook(body, process.env.SLACKHOOK as string)
     } catch (e) {
         console.log(e);
         return res.status(400).json();
