@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
+const webhookParser_1 = __importDefault(require("./webhookParser"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8080;
@@ -28,6 +29,7 @@ app.post("/webhook", (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const { body } = req;
     try {
         console.log(body);
+        (0, webhookParser_1.default)(body, process.env.SLACKHOOK);
     }
     catch (e) {
         console.log(e);

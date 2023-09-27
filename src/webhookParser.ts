@@ -1,14 +1,21 @@
 import axios from "axios";
+import { formatMoney } from "./utils";
 type trxResponse = {
   from: string;
   to: string;
   value: number;
   transactionHash: string;
-  transactionType: string;
+  transactionType: "token" | "native";
   network: string;
   chainId: number;
   text?: string;
   contractAddress: null | string;
+  meta: {
+    token_name?: string;
+    token_symbol?: string;
+    blockchain: string;
+    blockchain_symbol?: string;
+  };
 };
 
 async function sendWebHook(data: trxResponse, url: string) {
@@ -26,12 +33,12 @@ async function sendWebHook(data: trxResponse, url: string) {
             type: "divider",
           },
           {
-            "type": "header",
-            "text": {
-              "type": "plain_text",
-              "text": data.text,
-              "emoji": true
-            }
+            type: "header",
+            text: {
+              type: "plain_text",
+              text: data.text,
+              emoji: true,
+            },
           },
           {
             type: "section",
@@ -51,7 +58,12 @@ async function sendWebHook(data: trxResponse, url: string) {
             fields: [
               {
                 type: "mrkdwn",
-                text: `*Amount*\n${data.value}`,
+                text: `*Amount*\n${formatMoney(
+                  data.value,
+                  data.transactionType === "token"
+                    ? (data.meta.token_symbol as string)
+                    : (data.meta.blockchain_symbol as string)
+                )}`,
               },
               {
                 type: "mrkdwn",
