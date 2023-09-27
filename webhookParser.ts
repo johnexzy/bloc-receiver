@@ -23,20 +23,37 @@ async function sendWebHook(data: trxResponse, url: string) {
       data: JSON.stringify({
         blocks: [
           {
+            type: "divider",
+          },
+ 
+          {
             type: "section",
-            text: {
-              type: "plain_text",
-              text: `${data.from} transferred ${data.value} to ${data.to}`,
-              emoji: true,
-            },
+            fields: [
+              {
+                type: "mrkdwn",
+                text: `*From*\n${data.from}`,
+              },
+              {
+                type: "mrkdwn",
+                text: `*To*\n$${data.to}`,
+              },
+            ],
           },
           {
-            type: "header",
-            text: {
-              type: "plain_text",
-              text: data.text,
-              emoji: true,
-            },
+            type: "section",
+            fields: [
+              {
+                type: "mrkdwn",
+                text: `*Amount*\n${data.value}`,
+              },
+              {
+                type: "mrkdwn",
+                text: `*Type*\n$${data.text}`,
+              },
+            ],
+          },
+          {
+            type: "divider",
           },
         ],
       }),
