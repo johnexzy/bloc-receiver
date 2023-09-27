@@ -25,7 +25,14 @@ async function sendWebHook(data: trxResponse, url: string) {
           {
             type: "divider",
           },
- 
+          {
+            "type": "header",
+            "text": {
+              "type": "plain_text",
+              "text": data.text,
+              "emoji": true
+            }
+          },
           {
             type: "section",
             fields: [
