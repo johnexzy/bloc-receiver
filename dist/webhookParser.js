@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
+const utils_1 = require("./utils");
 function sendWebHook(data, url) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -29,12 +30,12 @@ function sendWebHook(data, url) {
                             type: "divider",
                         },
                         {
-                            "type": "header",
-                            "text": {
-                                "type": "plain_text",
-                                "text": data.text,
-                                "emoji": true
-                            }
+                            type: "header",
+                            text: {
+                                type: "plain_text",
+                                text: data.text,
+                                emoji: true,
+                            },
                         },
                         {
                             type: "section",
@@ -54,11 +55,15 @@ function sendWebHook(data, url) {
                             fields: [
                                 {
                                     type: "mrkdwn",
-                                    text: `*Amount*\n${data.value}`,
+                                    text: `*Amount*\n${(0, utils_1.formatMoney)(data.value, data.transactionType === "token"
+                                        ? data.meta.token_symbol
+                                        : data.meta.blockchain_symbol)}`,
                                 },
                                 {
                                     type: "mrkdwn",
-                                    text: `*Type*\n${data.text}`,
+                                    text: `*Type*\n${data.transactionType === "token"
+                                        ? data.meta.token_name
+                                        : data.meta.blockchain} Transfer`,
                                 },
                             ],
                         },

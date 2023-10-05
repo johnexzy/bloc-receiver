@@ -5,12 +5,14 @@ import sendWebHook from './webhookParser';
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8090;
 app.use(cors())
 app.use(express.json())
+
 app.get('/', (req: Request, res: Response) => {
-    return res.status(400).json('Server Ready');
+    return res.status(200).json('Server Ready');
 });
+
 // webhook
 app.post("/webhook", async (req, res) => {
     const { body } = req;

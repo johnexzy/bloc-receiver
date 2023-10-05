@@ -18,11 +18,11 @@ const cors_1 = __importDefault(require("cors"));
 const webhookParser_1 = __importDefault(require("./webhookParser"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8090;
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.get('/', (req, res) => {
-    return res.status(400).json('Server Ready');
+    return res.status(200).json('Server Ready');
 });
 // webhook
 app.post("/webhook", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
